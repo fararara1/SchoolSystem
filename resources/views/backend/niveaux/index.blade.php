@@ -1,0 +1,74 @@
+@extends('layouts.app')
+
+@section('content')
+<div class="roles-permissions max-w-7xl mx-auto px-6 py-8">
+    <!-- Titre -->
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-extrabold text-gray-800 uppercase">Niveaux</h2>
+        <!-- Bouton Ajouter -->
+        <a href="{{ route('niveaux.create') }}" 
+           class="inline-flex items-center bg-green-600 hover:bg-green-700 text-white text-sm uppercase font-semibold py-2 px-5 rounded shadow transition">
+            <svg class="w-4 h-4 fill-current mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 
+                         0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 
+                         32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 
+                         14.33 32 32 32h32c17.67 0 32-14.33 
+                         32-32V304h144c17.67 0 32-14.33 
+                         32-32v-32c0-17.67-14.33-32-32-32z"/>
+            </svg>
+            Ajouter
+        </a>
+    </div>
+
+    <!-- Message succès -->
+    @if(session('success'))
+        <div class="mb-6 px-4 py-3 rounded bg-green-100 text-green-800 border border-green-300 shadow">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    <!-- Tableau -->
+    <div class="overflow-x-auto bg-white rounded-lg shadow border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-800 text-white uppercase text-sm font-semibold">
+                <tr>
+                    <th class="px-6 py-3 text-left w-9/12">Nom</th>
+                    <th class="px-6 py-3 text-right w-3/12">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100 text-gray-700 text-sm">
+                @forelse ($niveaux as $niveau)
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-6 py-4 font-semibold">{{ $niveau->nom }}</td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ route('niveaux.edit', $niveau->id) }}" 
+                               class="inline-block p-2 text-green-600 hover:bg-green-100 rounded transition" title="Modifier">
+                                <svg class="h-5 w-5 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path d="M400 480H48c-26.5 0-48-21.5-48-48V80c0-26.5 
+                                    21.5-48 48-48h352c26.5 0 48 21.5 48 
+                                    48v352c0 26.5-21.5 48-48 
+                                    48zM238.1 177.9L102.4 313.6l-6.3 
+                                    57.1c-.8 7.6 5.6 14.1 13.3 
+                                    13.3l57.1-6.3L302.2 242c2.3-2.3 
+                                    2.3-6.1 0-8.5L246.7 178c-2.5-2.4-6.3-2.4-8.6-.1zM345 
+                                    165.1L314.9 135c-9.4-9.4-24.6-9.4-33.9 
+                                    0l-23.1 23.1c-2.3 2.3-2.3 6.1 0 
+                                    8.5l55.5 55.5c2.3 2.3 6.1 2.3 
+                                    8.5 0L345 199c9.3-9.3 9.3-24.5 
+                                    0-33.9z"/>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="2" class="px-6 py-4 text-center text-gray-500">Aucun niveau trouvé.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+
+    
+</div>
+@endsection
